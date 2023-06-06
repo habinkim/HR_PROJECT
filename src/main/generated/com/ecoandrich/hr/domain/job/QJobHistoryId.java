@@ -1,4 +1,4 @@
-package com.ecoandrich.hr.domain;
+package com.ecoandrich.hr.domain.job;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,13 +16,13 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEmbeddableSerializer")
 public class QJobHistoryId extends BeanPath<JobHistoryId> {
 
-    private static final long serialVersionUID = -1953396873L;
+    private static final long serialVersionUID = 690251656L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QJobHistoryId jobHistoryId = new QJobHistoryId("jobHistoryId");
 
-    public final QEmployee employee;
+    public final com.ecoandrich.hr.domain.employee.QEmployee employee;
 
     public final DatePath<java.time.LocalDate> startDate = createDate("startDate", java.time.LocalDate.class);
 
@@ -44,7 +44,7 @@ public class QJobHistoryId extends BeanPath<JobHistoryId> {
 
     public QJobHistoryId(Class<? extends JobHistoryId> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.employee = inits.isInitialized("employee") ? new QEmployee(forProperty("employee"), inits.get("employee")) : null;
+        this.employee = inits.isInitialized("employee") ? new com.ecoandrich.hr.domain.employee.QEmployee(forProperty("employee"), inits.get("employee")) : null;
     }
 
 }

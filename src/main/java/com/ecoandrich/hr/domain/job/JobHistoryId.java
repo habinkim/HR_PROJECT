@@ -1,5 +1,6 @@
-package com.ecoandrich.hr.domain;
+package com.ecoandrich.hr.domain.job;
 
+import com.ecoandrich.hr.domain.employee.Employee;
 import jakarta.persistence.*;
 
 import java.io.Serializable;

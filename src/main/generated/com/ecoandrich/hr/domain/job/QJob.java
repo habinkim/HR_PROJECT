@@ -1,4 +1,4 @@
-package com.ecoandrich.hr.domain;
+package com.ecoandrich.hr.domain.job;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,11 +16,11 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QJob extends EntityPathBase<Job> {
 
-    private static final long serialVersionUID = 1430810680L;
+    private static final long serialVersionUID = 998443271L;
 
     public static final QJob job = new QJob("job");
 
-    public final SetPath<Employee, QEmployee> employees = this.<Employee, QEmployee>createSet("employees", Employee.class, QEmployee.class, PathInits.DIRECT2);
+    public final SetPath<com.ecoandrich.hr.domain.employee.Employee, com.ecoandrich.hr.domain.employee.QEmployee> employees = this.<com.ecoandrich.hr.domain.employee.Employee, com.ecoandrich.hr.domain.employee.QEmployee>createSet("employees", com.ecoandrich.hr.domain.employee.Employee.class, com.ecoandrich.hr.domain.employee.QEmployee.class, PathInits.DIRECT2);
 
     public final SetPath<JobHistory, QJobHistory> jobHistories = this.<JobHistory, QJobHistory>createSet("jobHistories", JobHistory.class, QJobHistory.class, PathInits.DIRECT2);
 

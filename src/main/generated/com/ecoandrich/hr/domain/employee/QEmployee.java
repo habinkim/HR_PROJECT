@@ -1,4 +1,4 @@
-package com.ecoandrich.hr.domain;
+package com.ecoandrich.hr.domain.employee;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QEmployee extends EntityPathBase<Employee> {
 
-    private static final long serialVersionUID = -488331501L;
+    private static final long serialVersionUID = 744463209L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
@@ -38,7 +38,7 @@ public class QEmployee extends EntityPathBase<Employee> {
 
     public final NumberPath<Integer> id = createNumber("id", Integer.class);
 
-    public final QJob job;
+    public final com.ecoandrich.hr.domain.job.QJob job;
 
     public final StringPath lastName = createString("lastName");
 
@@ -67,7 +67,7 @@ public class QEmployee extends EntityPathBase<Employee> {
     public QEmployee(Class<? extends Employee> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.department = inits.isInitialized("department") ? new QDepartment(forProperty("department"), inits.get("department")) : null;
-        this.job = inits.isInitialized("job") ? new QJob(forProperty("job")) : null;
+        this.job = inits.isInitialized("job") ? new com.ecoandrich.hr.domain.job.QJob(forProperty("job")) : null;
         this.manager = inits.isInitialized("manager") ? new QEmployee(forProperty("manager"), inits.get("manager")) : null;
     }
 

@@ -1,4 +1,4 @@
-package com.ecoandrich.hr.domain;
+package com.ecoandrich.hr.domain.location;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QRegion extends EntityPathBase<Region> {
 
-    private static final long serialVersionUID = -2049393511L;
+    private static final long serialVersionUID = -1711657080L;
 
     public static final QRegion region = new QRegion("region");
 

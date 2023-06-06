@@ -1,4 +1,4 @@
-package com.ecoandrich.hr.domain;
+package com.ecoandrich.hr.domain.location;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QLocation extends EntityPathBase<Location> {
 
-    private static final long serialVersionUID = 219242522L;
+    private static final long serialVersionUID = -1633561783L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
@@ -26,7 +26,7 @@ public class QLocation extends EntityPathBase<Location> {
 
     public final QCountry country;
 
-    public final SetPath<Department, QDepartment> departments = this.<Department, QDepartment>createSet("departments", Department.class, QDepartment.class, PathInits.DIRECT2);
+    public final SetPath<com.ecoandrich.hr.domain.employee.Department, com.ecoandrich.hr.domain.employee.QDepartment> departments = this.<com.ecoandrich.hr.domain.employee.Department, com.ecoandrich.hr.domain.employee.QDepartment>createSet("departments", com.ecoandrich.hr.domain.employee.Department.class, com.ecoandrich.hr.domain.employee.QDepartment.class, PathInits.DIRECT2);
 
     public final NumberPath<Integer> id = createNumber("id", Integer.class);
 

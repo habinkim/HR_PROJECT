@@ -1,7 +1,8 @@
-package com.ecoandrich.hr.domain;
+package com.ecoandrich.hr.domain.employee;
 
+import com.ecoandrich.hr.domain.job.JobHistory;
+import com.ecoandrich.hr.domain.location.Location;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -20,7 +21,6 @@ public class Department {
     @Column(name = "department_id", nullable = false)
     private Integer id;
 
-    @Size(max = 30)
     @Column(name = "department_name", nullable = false, length = 30)
     private String departmentName;
 
@@ -32,9 +32,11 @@ public class Department {
     @JoinColumn(name = "location_id")
     private Location location;
 
+    @Builder.Default
     @OneToMany(mappedBy = "department")
     private Set<Employee> employees = new LinkedHashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "department")
     private Set<JobHistory> jobHistories = new LinkedHashSet<>();
 

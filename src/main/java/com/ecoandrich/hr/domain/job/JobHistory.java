@@ -1,7 +1,7 @@
-package com.ecoandrich.hr.domain;
+package com.ecoandrich.hr.domain.job;
 
+import com.ecoandrich.hr.domain.employee.Department;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;

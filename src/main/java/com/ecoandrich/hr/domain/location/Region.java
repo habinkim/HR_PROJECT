@@ -1,7 +1,6 @@
-package com.ecoandrich.hr.domain;
+package com.ecoandrich.hr.domain.location;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.util.LinkedHashSet;
@@ -19,10 +18,10 @@ public class Region {
     @Column(name = "region_id", nullable = false)
     private Integer id;
 
-    @Size(max = 25)
     @Column(name = "region_name", length = 25)
     private String regionName;
 
+    @Builder.Default
     @OneToMany(mappedBy = "region")
     private Set<Country> countries = new LinkedHashSet<>();
 

@@ -1,7 +1,7 @@
-package com.ecoandrich.hr.domain;
+package com.ecoandrich.hr.domain.job;
 
+import com.ecoandrich.hr.domain.employee.Employee;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -30,9 +30,11 @@ public class Job {
     @Column(name = "max_salary", precision = 8)
     private BigDecimal maxSalary;
 
+    @Builder.Default
     @OneToMany(mappedBy = "job")
     private Set<Employee> employees = new LinkedHashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "job")
     private Set<JobHistory> jobHistories = new LinkedHashSet<>();
 
