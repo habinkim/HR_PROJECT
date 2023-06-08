@@ -17,7 +17,6 @@ import java.util.Set;
 @Table(name = "jobs")
 public class Job {
     @Id
-    @Size(max = 10)
     @Column(name = "job_id", nullable = false, length = 10)
     private String jobId;
 

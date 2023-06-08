@@ -1,0 +1,14 @@
+= TODO REST API Documentation
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+[[Employee-API]]
+== Employee API
+
+=== 특정 사원 현재 정보 조회 API
+
+operation::info-success[snippets='curl-request,http-request,http-response,request-headers,response-fields']

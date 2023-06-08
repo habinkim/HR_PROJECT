@@ -2,10 +2,12 @@ package com.ecoandrich.hr.domain.job;
 
 import com.ecoandrich.hr.domain.employee.Employee;
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
+@EqualsAndHashCode
 @Embeddable
 public class JobHistoryId implements Serializable {
 

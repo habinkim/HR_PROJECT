@@ -26,11 +26,7 @@ public class QEmployee extends EntityPathBase<Employee> {
 
     public final QDepartment department;
 
-    public final SetPath<Department, QDepartment> departments = this.<Department, QDepartment>createSet("departments", Department.class, QDepartment.class, PathInits.DIRECT2);
-
     public final StringPath email = createString("email");
-
-    public final SetPath<Employee, QEmployee> employees = this.<Employee, QEmployee>createSet("employees", Employee.class, QEmployee.class, PathInits.DIRECT2);
 
     public final StringPath firstName = createString("firstName");
 
