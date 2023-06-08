@@ -7,4 +7,6 @@ public class Uris {
 
     public static final String EMPLOYEE_ROOT = "/employee";
 
+    public static final String JOB_ROOT = "/job";
+
 }

@@ -33,9 +33,7 @@ class EmployeeControllerTest extends ControllerBaseTest {
         Integer employeeId = 101;
 
 
-        mockMvc.perform(get(uri, employeeId)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                )
+        mockMvc.perform(get(uri, employeeId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.message", notNullValue()))
                 .andExpect(jsonPath("$.result", notNullValue()))

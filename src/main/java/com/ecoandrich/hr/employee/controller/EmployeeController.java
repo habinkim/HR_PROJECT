@@ -7,7 +7,6 @@ import com.ecoandrich.hr.employee.mapper.EmployeeMapper;
 import com.ecoandrich.hr.employee.service.EmployeeService;
 import com.ecoandrich.hr.payload.employee.EmployeePayloads;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +25,7 @@ public class EmployeeController {
      * @param id
      * @return EmployeePayloads.InfoResponse
      */
-    @GetMapping(value = Uris.EMPLOYEE_ROOT + Uris.REST_NAME_ID, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = Uris.EMPLOYEE_ROOT + Uris.REST_NAME_ID)
     public ResponseEntity<BaseResponse<EmployeePayloads.InfoResponse>> info(@PathVariable Integer id) {
         EmployeePayloads.InfoResponse infoResponse = employeeMapper.infoResponse(service.findById(id));
         return responseMapper.ok(infoResponse);
