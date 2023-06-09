@@ -11,4 +11,19 @@
 
 === 특정 사원 현재 정보 조회 API
 
-operation::info-success[snippets='curl-request,http-request,http-response,request-headers,response-fields']
+operation::info-success[snippets='curl-request,http-request,path-parameters,http-response,response-fields']
+
+[[Job-API]]
+== Job API
+
+=== 특정 사원 업무 이력 정보 조회 API - no Paging
+
+operation::history-success[snippets='curl-request,http-request,path-parameters,http-response,response-fields']
+
+=== 특정 사원 업무 이력 정보 조회 API - with Paging
+
+operation::history-with-paging-success[snippets='curl-request,http-request,path-parameters,http-response,response-fields']
+
+=== 특정 사원 업무 이력 정보 조회 API - with Paging and Query Param
+
+operation::history-with-paging-and-query-param-success[snippets='curl-request,http-request,path-parameters,query-parameters,http-response,response-fields']

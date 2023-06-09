@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.ecoandrich.hr.common.response.MessageCode.NOT_FOUND_EMPLOYEE;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
@@ -71,9 +72,6 @@ class EmployeeControllerTest extends ControllerBaseTest {
                 .andExpect(jsonPath("$.result.departmentName", is("Executive")))
 
                 .andDo(restDocs.document(
-                        requestHeaders(
-                                headerWithName(CONTENT_TYPE).description("application/json")
-                        ),
                         pathParameters(
                                 parameterWithName("id").description("사원 ID")
                         ),
@@ -109,14 +107,12 @@ class EmployeeControllerTest extends ControllerBaseTest {
         Integer employeeId = 999;
 
 
-        mockMvc.perform(get(uri, employeeId)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                )
+        mockMvc.perform(get(uri, employeeId))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message", notNullValue()))
                 .andExpect(jsonPath("$.code", notNullValue()))
-                .andExpect(jsonPath("$.message", is(messageSourceUtil.getMessage(MessageCode.NOT_FOUND_EMPLOYEE.getCode()))))
-                .andExpect(jsonPath("$.code", is(MessageCode.NOT_FOUND_EMPLOYEE.getCode())));
+                .andExpect(jsonPath("$.message", is(messageSourceUtil.getMessage(NOT_FOUND_EMPLOYEE.getCode()))))
+                .andExpect(jsonPath("$.code", is(NOT_FOUND_EMPLOYEE.getCode())));
     }
 
 }

@@ -1,10 +1,21 @@
 package com.ecoandrich.hr.job.repository;
 
+import com.ecoandrich.hr.domain.job.JobHistory;
 import com.ecoandrich.hr.payload.job.JobPayloads;
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.PathBuilder;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.support.PageableExecutionUtils;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.ecoandrich.hr.domain.employee.QDepartment.department;
@@ -17,10 +28,7 @@ public class JobHistoryRepositoryCustomImpl implements JobHistoryRepositoryCusto
 
     private final JPAQueryFactory queryFactory;
 
-
-    @Override
-    public List<JobPayloads.HistoryResponse> findListByEmployeeId(Integer id) {
-
+    public JPAQuery<JobPayloads.HistoryResponse> fetchQuery(Integer id) {
         return queryFactory.select(Projections.fields(JobPayloads.HistoryResponse.class,
                         employee.id.as("employeeId"),
                         employee.firstName,
@@ -37,6 +45,29 @@ public class JobHistoryRepositoryCustomImpl implements JobHistoryRepositoryCusto
                 .join(jobHistory.job, job)
                 .join(jobHistory.department, department)
                 .where(employee.id.eq(id))
-                .fetch();
+                .orderBy(jobHistory.endDate.desc());
     }
+
+    @Override
+    public List<JobPayloads.HistoryResponse> findListByEmployeeId(Integer id) {
+        return fetchQuery(id).fetch();
+    }
+
+    @Override
+    public Page<JobPayloads.HistoryResponse> findPageByEmployeeId(Integer id, Pageable pageable) {
+        List<JobPayloads.HistoryResponse> fetch = fetchQuery(id)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        JPAQuery<Long> countQuery = queryFactory.select(jobHistory.id.count())
+                .from(jobHistory)
+                .join(jobHistory.id.employee, employee)
+                .join(jobHistory.job, job)
+                .join(jobHistory.department, department)
+                .where(employee.id.eq(id));
+
+        return PageableExecutionUtils.getPage(fetch, pageable, countQuery::fetchOne);
+    }
+
 }

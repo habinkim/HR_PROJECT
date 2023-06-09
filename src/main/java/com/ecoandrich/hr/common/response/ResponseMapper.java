@@ -15,11 +15,11 @@ public class ResponseMapper {
         return ResponseEntity.ok().body(new BaseResponse<>(MessageCode.SUCCESS.name(), null));
     }
 
-    private <T> ResponseEntity<BaseResponse<T>> ok(final MessageCode messageCode, final T source) {
+    private <T> ResponseEntity<BaseResponse> ok(final MessageCode messageCode, final T source) {
         return ResponseEntity.ok().body(new BaseResponse<>(messageCode.name(), source));
     }
 
-    public <T> ResponseEntity<BaseResponse<T>> ok(final T source) {
+    public <T> ResponseEntity<BaseResponse> ok(final T source) {
         return ok(MessageCode.SUCCESS, source);
     }
 

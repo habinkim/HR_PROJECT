@@ -26,7 +26,7 @@ public class EmployeeController {
      * @return EmployeePayloads.InfoResponse
      */
     @GetMapping(value = Uris.EMPLOYEE_ROOT + Uris.REST_NAME_ID)
-    public ResponseEntity<BaseResponse<EmployeePayloads.InfoResponse>> info(@PathVariable Integer id) {
+    public ResponseEntity<BaseResponse> info(@PathVariable Integer id) {
         EmployeePayloads.InfoResponse infoResponse = employeeMapper.infoResponse(service.findById(id));
         return responseMapper.ok(infoResponse);
     }
