@@ -1,9 +1,8 @@
-package com.ecoandrich.hr.domain.employee;
+package com.ecoandrich.hr.domain.department;
 
+import com.ecoandrich.hr.domain.employee.Employee;
 import com.ecoandrich.hr.domain.job.JobHistory;
-import com.ecoandrich.hr.domain.location.Location;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.util.LinkedHashSet;

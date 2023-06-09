@@ -1,24 +1,17 @@
 package com.ecoandrich.hr.job.repository;
 
-import com.ecoandrich.hr.domain.job.JobHistory;
 import com.ecoandrich.hr.payload.job.JobPayloads;
-import com.querydsl.core.types.Order;
-import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.support.PageableExecutionUtils;
 
-import java.time.LocalDate;
 import java.util.List;
 
-import static com.ecoandrich.hr.domain.employee.QDepartment.department;
+import static com.ecoandrich.hr.domain.department.QDepartment.department;
 import static com.ecoandrich.hr.domain.employee.QEmployee.employee;
 import static com.ecoandrich.hr.domain.job.QJob.job;
 import static com.ecoandrich.hr.domain.job.QJobHistory.jobHistory;

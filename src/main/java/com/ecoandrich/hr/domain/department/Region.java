@@ -1,4 +1,4 @@
-package com.ecoandrich.hr.domain.location;
+package com.ecoandrich.hr.domain.department;
 
 import jakarta.persistence.*;
 import lombok.*;

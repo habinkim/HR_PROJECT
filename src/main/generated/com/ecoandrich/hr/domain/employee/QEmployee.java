@@ -24,7 +24,7 @@ public class QEmployee extends EntityPathBase<Employee> {
 
     public final NumberPath<java.math.BigDecimal> commissionPct = createNumber("commissionPct", java.math.BigDecimal.class);
 
-    public final QDepartment department;
+    public final com.ecoandrich.hr.domain.department.QDepartment department;
 
     public final StringPath email = createString("email");
 
@@ -62,7 +62,7 @@ public class QEmployee extends EntityPathBase<Employee> {
 
     public QEmployee(Class<? extends Employee> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.department = inits.isInitialized("department") ? new QDepartment(forProperty("department"), inits.get("department")) : null;
+        this.department = inits.isInitialized("department") ? new com.ecoandrich.hr.domain.department.QDepartment(forProperty("department"), inits.get("department")) : null;
         this.job = inits.isInitialized("job") ? new com.ecoandrich.hr.domain.job.QJob(forProperty("job")) : null;
         this.manager = inits.isInitialized("manager") ? new QEmployee(forProperty("manager"), inits.get("manager")) : null;
     }

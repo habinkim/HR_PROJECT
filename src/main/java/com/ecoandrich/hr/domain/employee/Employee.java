@@ -1,14 +1,12 @@
 package com.ecoandrich.hr.domain.employee;
 
+import com.ecoandrich.hr.domain.department.Department;
 import com.ecoandrich.hr.domain.job.Job;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 /**
  * 사원 Entity 클래스

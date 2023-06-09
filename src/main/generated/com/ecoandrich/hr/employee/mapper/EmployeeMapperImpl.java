@@ -1,6 +1,6 @@
 package com.ecoandrich.hr.employee.mapper;
 
-import com.ecoandrich.hr.domain.employee.Department;
+import com.ecoandrich.hr.domain.department.Department;
 import com.ecoandrich.hr.domain.employee.Employee;
 import com.ecoandrich.hr.domain.job.Job;
 import com.ecoandrich.hr.payload.employee.EmployeePayloads;
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-06-09T17:03:38+0900",
-    comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 18.0.2.1 (Oracle Corporation)"
+    date = "2023-06-09T17:51:27+0900",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 18.0.2.1 (Oracle Corporation)"
 )
 @Component
 public class EmployeeMapperImpl implements EmployeeMapper {

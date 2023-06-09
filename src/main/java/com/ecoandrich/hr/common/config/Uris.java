@@ -9,4 +9,6 @@ public class Uris {
 
     public static final String JOB_ROOT = "/job";
 
+    public static final String DEPARTMENT_ROOT = "/department";
+
 }
