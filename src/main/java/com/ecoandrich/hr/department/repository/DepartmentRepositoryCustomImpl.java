@@ -1,12 +1,16 @@
 package com.ecoandrich.hr.department.repository;
 
+import com.ecoandrich.hr.common.util.PredicateBuilder;
 import com.ecoandrich.hr.payload.department.DepartmentPayloads;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.support.PageableExecutionUtils;
 
 import java.util.List;
@@ -50,12 +54,12 @@ public class DepartmentRepositoryCustomImpl implements DepartmentRepositoryCusto
     }
 
     @Override
-    public List<DepartmentPayloads.InfoResponse> findAllWithProjection() {
+    public List<DepartmentPayloads.InfoResponse> findAllV1() {
         return fetchQuery().fetch();
     }
 
     @Override
-    public Page<DepartmentPayloads.InfoResponse> findAllWithProjectionAndPaging(Pageable pageable) {
+    public Page<DepartmentPayloads.InfoResponse> findAllV2(Pageable pageable) {
         List<DepartmentPayloads.InfoResponse> fetch = fetchQuery()
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -69,5 +73,43 @@ public class DepartmentRepositoryCustomImpl implements DepartmentRepositoryCusto
                 .join(country.region, region);
 
         return PageableExecutionUtils.getPage(fetch, pageable, countQuery::fetchOne);
+    }
+
+    @Override
+    public Page<DepartmentPayloads.InfoResponse> findAllV3(DepartmentPayloads.InfoRequest request) {
+        Predicate predicate = PredicateBuilder.builder()
+                .eqNumber(department.id, request.departmentId())
+                .containsString(department.departmentName, request.departmentName())
+                .eqNumber(employee.id, request.managerId())
+                .containsStringDesc(request.managerName(), employee.firstName, employee.lastName)
+                .eqNumber(location.id, request.locationId())
+                .containsString(location.streetAddress, request.streetAddress())
+                .eqString(country.countryId, request.countryId())
+                .containsString(country.countryName, request.countryName())
+                .eqNumber(region.id, request.regionId())
+                .containsString(region.regionName, request.regionName())
+                .build();
+
+        PageRequest pageRequest = PageRequest.of(
+                request.page() != null ? request.page() : 0,
+                request.size() != null ? request.size() : 10,
+                Sort.by(Sort.Direction.ASC, "departmentName")
+        );
+
+        List<DepartmentPayloads.InfoResponse> fetch = fetchQuery()
+                .offset(pageRequest.getOffset())
+                .limit(pageRequest.getPageSize())
+                .where(predicate)
+                .fetch();
+
+        JPAQuery<Long> countQuery = queryFactory.select(department.id.count())
+                .from(department)
+                .leftJoin(department.manager, employee)
+                .leftJoin(department.location, location)
+                .join(location.country, country)
+                .join(country.region, region)
+                .where(predicate);
+
+        return PageableExecutionUtils.getPage(fetch, pageRequest, countQuery::fetchOne);
     }
 }

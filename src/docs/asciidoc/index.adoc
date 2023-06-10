@@ -34,3 +34,7 @@ operation::list-success[snippets='curl-request,http-request,http-response,respon
 === 부서 및 위치 정보 조회 API - with Paging
 
 operation::list-with-paging-success[snippets='curl-request,http-request,query-parameters,http-response,response-fields']
+
+=== 부서 및 위치 정보 조회 API - with Paging and Filter
+
+operation::list-with-paging-and-filter-success[snippets='curl-request,http-request,request-fields,http-response,response-fields']

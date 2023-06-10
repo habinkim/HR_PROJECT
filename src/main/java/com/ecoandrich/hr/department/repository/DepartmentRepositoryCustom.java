@@ -8,8 +8,9 @@ import java.util.List;
 
 public interface DepartmentRepositoryCustom {
 
-    List<DepartmentPayloads.InfoResponse> findAllWithProjection();
+    List<DepartmentPayloads.InfoResponse> findAllV1();
 
-    Page<DepartmentPayloads.InfoResponse> findAllWithProjectionAndPaging(Pageable pageable);
+    Page<DepartmentPayloads.InfoResponse> findAllV2(Pageable pageable);
 
+    Page<DepartmentPayloads.InfoResponse> findAllV3(DepartmentPayloads.InfoRequest request);
 }

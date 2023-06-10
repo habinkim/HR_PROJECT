@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -19,11 +20,16 @@ public class DepartmentService {
 
     @Transactional(readOnly = true)
     public List<DepartmentPayloads.InfoResponse> findAllV1() {
-        return repository.findAllWithProjection();
+        return repository.findAllV1();
     }
 
     @Transactional(readOnly = true)
     public Page<DepartmentPayloads.InfoResponse> findAllV2(Pageable pageable) {
-        return repository.findAllWithProjectionAndPaging(pageable);
+        return repository.findAllV2(pageable);
+    }
+
+    @Transactional(isolation = Isolation.REPEATABLE_READ, readOnly = true)
+    public Page<DepartmentPayloads.InfoResponse> findAllV3(DepartmentPayloads.InfoRequest request) {
+        return repository.findAllV3(request);
     }
 }

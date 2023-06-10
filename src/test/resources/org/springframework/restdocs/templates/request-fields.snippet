@@ -1,0 +1,17 @@
+|===
+|Path|Type|Description|optional|default|min|query
+
+{{#fields}}
+|{{#tableCellContent}}`+{{path}}+`{{/tableCellContent}}
+|{{#tableCellContent}}`+{{type}}+`{{/tableCellContent}}
+|{{#tableCellContent}}{{description}}{{/tableCellContent}}
+|{{#tableCellContent}}_{{optional}}_{{/tableCellContent}}
+|{{#tableCellContent}}{{#default}}{{.}} +
+{{/default}}{{/tableCellContent}}
+|{{#tableCellContent}}{{#min}}{{.}} +
+{{/min}}{{/tableCellContent}}
+|{{#tableCellContent}}{{#query}}{{.}} +
+{{/query}}{{/tableCellContent}}
+
+{{/fields}}
+|===
