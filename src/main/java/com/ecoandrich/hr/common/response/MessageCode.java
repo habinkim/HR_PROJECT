@@ -17,7 +17,8 @@ public enum MessageCode {
     ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "9998"),
     EXCEPTION_ILLEGAL_ARGUMENT(HttpStatus.BAD_REQUEST, "9100"),
 
-    NOT_FOUND_EMPLOYEE(HttpStatus.BAD_REQUEST, "6001");
+    NOT_FOUND_EMPLOYEE(HttpStatus.BAD_REQUEST, "6001"),
+    NOT_FOUND_DEPARTMENT(HttpStatus.BAD_REQUEST, "7001");
 
 
     private final HttpStatus httpStatus;

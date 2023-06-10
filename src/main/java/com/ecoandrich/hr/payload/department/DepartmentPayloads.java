@@ -1,7 +1,10 @@
 package com.ecoandrich.hr.payload.department;
 
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
+import java.math.BigDecimal;
 
 public class DepartmentPayloads {
     public record InfoRequest(
@@ -18,6 +21,12 @@ public class DepartmentPayloads {
             Integer regionId,
             String regionName
     ) {
+    }
+
+    public record SalaryRequest(
+            @NotNull(message = "부서 ID를 입력하지 않으셨습니다.") Integer departmentId,
+            @NotNull(message = "인상률을 입력하지 않으셨습니다.") BigDecimal increaseRate
+            ) {
     }
 
     @Builder

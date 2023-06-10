@@ -24,9 +24,4 @@ public class Country {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "region_id", nullable = false)
     private Region region;
-
-    @Builder.Default
-    @OneToMany(mappedBy = "country")
-    private Set<Location> locations = new LinkedHashSet<>();
-
 }

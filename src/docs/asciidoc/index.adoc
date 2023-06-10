@@ -38,3 +38,7 @@ operation::list-with-paging-success[snippets='curl-request,http-request,query-pa
 === 부서 및 위치 정보 조회 API - with Paging and Filter
 
 operation::list-with-paging-and-filter-success[snippets='curl-request,http-request,request-fields,http-response,response-fields']
+
+=== 특정 부서 및 해당 업무의 급여 비율 인상 API
+
+operation::update-salary-success[snippets='curl-request,http-request,request-fields,http-response,response-fields']

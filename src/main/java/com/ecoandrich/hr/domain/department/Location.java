@@ -35,8 +35,4 @@ public class Location {
     @JoinColumn(name = "country_id", nullable = false)
     private Country country;
 
-    @Builder.Default
-    @OneToMany(mappedBy = "location")
-    private Set<Department> departments = new LinkedHashSet<>();
-
 }

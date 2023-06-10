@@ -21,8 +21,4 @@ public class Region {
     @Column(name = "region_name", length = 25)
     private String regionName;
 
-    @Builder.Default
-    @OneToMany(mappedBy = "region")
-    private Set<Country> countries = new LinkedHashSet<>();
-
 }

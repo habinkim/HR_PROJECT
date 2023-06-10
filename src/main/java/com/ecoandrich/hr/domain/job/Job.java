@@ -42,12 +42,4 @@ public class Job {
     @Column(name = "max_salary", precision = 8)
     private BigDecimal maxSalary;
 
-    @Builder.Default
-    @OneToMany(mappedBy = "job")
-    private Set<Employee> employees = new LinkedHashSet<>();
-
-    @Builder.Default
-    @OneToMany(mappedBy = "job")
-    private Set<JobHistory> jobHistories = new LinkedHashSet<>();
-
 }

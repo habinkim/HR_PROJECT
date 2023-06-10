@@ -44,12 +44,4 @@ public class Department {
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @Builder.Default
-    @OneToMany(mappedBy = "department")
-    private Set<Employee> employees = new LinkedHashSet<>();
-
-    @Builder.Default
-    @OneToMany(mappedBy = "department")
-    private Set<JobHistory> jobHistories = new LinkedHashSet<>();
-
 }

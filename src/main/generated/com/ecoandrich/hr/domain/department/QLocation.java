@@ -26,8 +26,6 @@ public class QLocation extends EntityPathBase<Location> {
 
     public final QCountry country;
 
-    public final SetPath<Department, QDepartment> departments = this.<Department, QDepartment>createSet("departments", Department.class, QDepartment.class, PathInits.DIRECT2);
-
     public final NumberPath<Integer> id = createNumber("id", Integer.class);
 
     public final StringPath postalCode = createString("postalCode");

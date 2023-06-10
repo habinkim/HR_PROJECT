@@ -24,11 +24,7 @@ public class QDepartment extends EntityPathBase<Department> {
 
     public final StringPath departmentName = createString("departmentName");
 
-    public final SetPath<com.ecoandrich.hr.domain.employee.Employee, com.ecoandrich.hr.domain.employee.QEmployee> employees = this.<com.ecoandrich.hr.domain.employee.Employee, com.ecoandrich.hr.domain.employee.QEmployee>createSet("employees", com.ecoandrich.hr.domain.employee.Employee.class, com.ecoandrich.hr.domain.employee.QEmployee.class, PathInits.DIRECT2);
-
     public final NumberPath<Integer> id = createNumber("id", Integer.class);
-
-    public final SetPath<com.ecoandrich.hr.domain.job.JobHistory, com.ecoandrich.hr.domain.job.QJobHistory> jobHistories = this.<com.ecoandrich.hr.domain.job.JobHistory, com.ecoandrich.hr.domain.job.QJobHistory>createSet("jobHistories", com.ecoandrich.hr.domain.job.JobHistory.class, com.ecoandrich.hr.domain.job.QJobHistory.class, PathInits.DIRECT2);
 
     public final QLocation location;
 

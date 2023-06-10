@@ -3,17 +3,28 @@ package com.ecoandrich.hr.department.controller;
 import com.ecoandrich.hr.base.ControllerBaseTest;
 import com.ecoandrich.hr.common.config.Uris;
 import com.ecoandrich.hr.common.response.MessageCode;
+import com.ecoandrich.hr.domain.employee.Employee;
+import com.ecoandrich.hr.employee.service.EmployeeService;
 import com.ecoandrich.hr.payload.department.DepartmentPayloads;
+import lombok.*;
+import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.List;
+
 import static org.hamcrest.Matchers.*;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.queryParameters;
@@ -21,7 +32,11 @@ import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Slf4j
 class DepartmentControllerTest extends ControllerBaseTest {
+
+    @Autowired
+    EmployeeService employeeService;
 
     @Transactional
     @Test
@@ -402,6 +417,87 @@ class DepartmentControllerTest extends ControllerBaseTest {
                                 fieldWithPath("result.empty").description("현재 페이지 요소 미존재 여부")
                         )
                 ));
+
+    }
+
+    @Transactional
+    @Test
+    @Order(4)
+    @DisplayName("특정 부서 및 해당 업무의 급여 비율 인상, 성공")
+    void updateSalarySuccess() throws Exception {
+        String uri = Uris.DEPARTMENT_ROOT + "/salary";
+        Integer departmentId = 20;
+        BigDecimal increaseRate = BigDecimal.valueOf(30.00);
+
+        List<Employee> employees = employeeService.findByDepartmentId(departmentId);
+        List<EmployeeDto> employeeDtos = employees.stream().map(e -> {
+            log.info("employee {}", e.getId());
+            log.info("salary : {}", e.getSalary());
+            log.info("job_id : {}", e.getJob().getJobId());
+
+            return EmployeeDto.builder()
+                    .id(e.getId())
+                    .salary(e.getSalary())
+                    .jobId(e.getJob().getJobId())
+                    .minSalary(e.getJob().getMinSalary())
+                    .maxSalary(e.getJob().getMaxSalary())
+                    .build();
+        }).toList();
+
+        DepartmentPayloads.SalaryRequest request = new DepartmentPayloads.SalaryRequest(departmentId, increaseRate);
+
+        ResultActions resultActions = mockMvc.perform(
+                        patch(uri).content(toJson(request))
+                                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.message", notNullValue()))
+                .andExpect(jsonPath("$.message", is(MessageCode.SUCCESS.name())));
+
+        employeeDtos.forEach(ed -> {
+            Employee byId = employeeService.findById(ed.getId());
+            assertEquals(byId.getId(), ed.getId());
+            assertEquals(calculateIncreaseRate(ed.getSalary(), increaseRate).intValue(), byId.getSalary().intValue());
+            assertEquals(calculateIncreaseRate(ed.getMinSalary(), increaseRate).intValue(), byId.getJob().getMinSalary().intValue());
+            assertEquals(calculateIncreaseRate(ed.getMaxSalary(), increaseRate).intValue(), byId.getJob().getMaxSalary().intValue());
+        });
+
+        resultActions.andDo(restDocs.document(
+                requestFields(
+                        fieldWithPath("departmentId").description("부서 ID"),
+                        fieldWithPath("increaseRate").description("급여 인상 비율").attributes(key("min").value("0"))
+                ),
+                responseFields(
+                        fieldWithPath("message").description("시스템 메시지")
+                )
+        ));
+
+    }
+
+    @NotNull
+    private static BigDecimal calculateIncreaseRate(BigDecimal salary, BigDecimal increaseRate) {
+        log.info("salary : {}", salary);
+
+        BigDecimal addValue = salary.multiply(increaseRate.divide(new BigDecimal("100"), RoundingMode.UP));
+        log.info("addValue : {}", addValue);
+
+        BigDecimal result = salary.add(addValue);
+        log.info("result : {}", result);
+        return result;
+    }
+
+    @Builder
+    @Getter
+    @EqualsAndHashCode(callSuper = false)
+    @NoArgsConstructor
+    @AllArgsConstructor
+    private static class EmployeeDto {
+
+        private Integer id;
+        private BigDecimal salary;
+        private String jobId;
+        private BigDecimal minSalary;
+        private BigDecimal maxSalary;
 
     }
 

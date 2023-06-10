@@ -14,10 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -56,6 +53,17 @@ public class DepartmentController {
     public ResponseEntity<BaseResponse> listWithPagingAndFilter(@Valid @RequestBody final DepartmentPayloads.InfoRequest request) {
         Page<DepartmentPayloads.InfoResponse> list = service.findAllV3(request);
         return responseMapper.ok(list);
+    }
+
+    /**
+     * 특정 부서 및 해당 업무의 급여 비율 인상 API
+     * @param request
+     * @return
+     */
+    @PatchMapping(value = Uris.DEPARTMENT_ROOT + "/salary", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BaseResponse> updateSalary(@Valid @RequestBody final DepartmentPayloads.SalaryRequest request) {
+        service.updateSalary(request);
+        return responseMapper.ok();
     }
 
 }
