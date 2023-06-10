@@ -442,7 +442,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>TODO REST API Documentation</h1>
 <div class="details">
-<span id="revnumber">version 0.2.0</span>
+<span id="revnumber">version 0.6.0</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -456,7 +456,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_특정_사원_업무_이력_정보_조회_api_no_paging">특정 사원 업무 이력 정보 조회 API - no Paging</a></li>
 <li><a href="#_특정_사원_업무_이력_정보_조회_api_with_paging">특정 사원 업무 이력 정보 조회 API - with Paging</a></li>
-<li><a href="#_특정_사원_업무_이력_정보_조회_api_with_paging_and_query_param">특정 사원 업무 이력 정보 조회 API - with Paging and Query Param</a></li>
+</ul>
+</li>
+<li><a href="#Department-API">Department API</a>
+<ul class="sectlevel2">
+<li><a href="#_부서_및_위치_정보_조회_api_no_paging">부서 및 위치 정보 조회 API - no Paging</a></li>
+<li><a href="#_부서_및_위치_정보_조회_api_with_paging">부서 및 위치 정보 조회 API - with Paging</a></li>
 </ul>
 </li>
 </ul>
@@ -805,7 +810,7 @@ Content-Length: 593
 <h4 id="_특정_사원_업무_이력_정보_조회_api_with_paging_curl_request"><a class="link" href="#_특정_사원_업무_이력_정보_조회_api_with_paging_curl_request">Curl request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:9200/job/v2/101' -i -X GET</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:9200/job/v2/101?size=5&amp;page=0' -i -X GET</code></pre>
 </div>
 </div>
 </div>
@@ -813,7 +818,7 @@ Content-Length: 593
 <h4 id="_특정_사원_업무_이력_정보_조회_api_with_paging_http_request"><a class="link" href="#_특정_사원_업무_이력_정보_조회_api_with_paging_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /job/v2/101 HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /job/v2/101?size=5&amp;page=0 HTTP/1.1
 Host: localhost:9200</code></pre>
 </div>
 </div>
@@ -841,12 +846,49 @@ Host: localhost:9200</code></pre>
 </table>
 </div>
 <div class="sect3">
+<h4 id="_특정_사원_업무_이력_정보_조회_api_with_paging_query_parameters"><a class="link" href="#_특정_사원_업무_이력_정보_조회_api_with_paging_query_parameters">Query parameters</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">optional</th>
+<th class="tableblock halign-left valign-top">default</th>
+<th class="tableblock halign-left valign-top">min</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">페이지당 크기</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>true</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10<br></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1<br></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>page</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">페이지 번호</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>true</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0<br></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0<br></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
 <h4 id="_특정_사원_업무_이력_정보_조회_api_with_paging_http_response"><a class="link" href="#_특정_사원_업무_이력_정보_조회_api_with_paging_http_response">HTTP response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 1160
+Content-Length: 1158
 
 {
   "message" : "SUCCESS",
@@ -874,26 +916,26 @@ Content-Length: 1160
     } ],
     "pageable" : {
       "sort" : {
-        "unsorted" : false,
         "sorted" : true,
+        "unsorted" : false,
         "empty" : false
       },
       "pageNumber" : 0,
-      "pageSize" : 10,
+      "pageSize" : 5,
       "offset" : 0,
       "paged" : true,
       "unpaged" : false
     },
+    "last" : true,
     "totalPages" : 1,
     "totalElements" : 2,
-    "last" : true,
     "numberOfElements" : 2,
     "first" : true,
-    "size" : 10,
+    "size" : 5,
     "number" : 0,
     "sort" : {
-      "unsorted" : false,
       "sorted" : true,
+      "unsorted" : false,
       "empty" : false
     },
     "empty" : false
@@ -1082,116 +1124,789 @@ Content-Length: 1160
 </table>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Department-API"><a class="link" href="#Department-API">Department API</a></h2>
+<div class="sectionbody">
 <div class="sect2">
-<h3 id="_특정_사원_업무_이력_정보_조회_api_with_paging_and_query_param"><a class="link" href="#_특정_사원_업무_이력_정보_조회_api_with_paging_and_query_param">특정 사원 업무 이력 정보 조회 API - with Paging and Query Param</a></h3>
+<h3 id="_부서_및_위치_정보_조회_api_no_paging"><a class="link" href="#_부서_및_위치_정보_조회_api_no_paging">부서 및 위치 정보 조회 API - no Paging</a></h3>
 <div class="sect3">
-<h4 id="_특정_사원_업무_이력_정보_조회_api_with_paging_and_query_param_curl_request"><a class="link" href="#_특정_사원_업무_이력_정보_조회_api_with_paging_and_query_param_curl_request">Curl request</a></h4>
+<h4 id="_부서_및_위치_정보_조회_api_no_paging_curl_request"><a class="link" href="#_부서_및_위치_정보_조회_api_no_paging_curl_request">Curl request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:9200/job/v2/101?size=1&amp;page=0' -i -X GET</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:9200/department/v1' -i -X GET</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_특정_사원_업무_이력_정보_조회_api_with_paging_and_query_param_http_request"><a class="link" href="#_특정_사원_업무_이력_정보_조회_api_with_paging_and_query_param_http_request">HTTP request</a></h4>
+<h4 id="_부서_및_위치_정보_조회_api_no_paging_http_request"><a class="link" href="#_부서_및_위치_정보_조회_api_no_paging_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /job/v2/101?size=1&amp;page=0 HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /department/v1 HTTP/1.1
 Host: localhost:9200</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_특정_사원_업무_이력_정보_조회_api_with_paging_and_query_param_path_parameters"><a class="link" href="#_특정_사원_업무_이력_정보_조회_api_with_paging_and_query_param_path_parameters">Path parameters</a></h4>
+<h4 id="_부서_및_위치_정보_조회_api_no_paging_http_response"><a class="link" href="#_부서_및_위치_정보_조회_api_no_paging_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 13526
+
+{
+  "message" : "SUCCESS",
+  "result" : [ {
+    "departmentId" : 110,
+    "departmentName" : "Accounting",
+    "managerId" : 205,
+    "managerFirstName" : "Shelley",
+    "managerLastName" : "Higgins",
+    "managerEmail" : "SHIGGINS",
+    "managerPhoneNumber" : "515.123.8080",
+    "locationId" : 1700,
+    "streetAddress" : "2004 Charade Rd",
+    "postalCode" : "98199",
+    "city" : "Seattle",
+    "stateProvince" : "Washington",
+    "countryId" : "US",
+    "countryName" : "United States of America",
+    "regionId" : 2,
+    "regionName" : "Americas"
+  }, {
+    "departmentId" : 10,
+    "departmentName" : "Administration",
+    "managerId" : 200,
+    "managerFirstName" : "Jennifer",
+    "managerLastName" : "Whalen",
+    "managerEmail" : "JWHALEN",
+    "managerPhoneNumber" : "515.123.4444",
+    "locationId" : 1700,
+    "streetAddress" : "2004 Charade Rd",
+    "postalCode" : "98199",
+    "city" : "Seattle",
+    "stateProvince" : "Washington",
+    "countryId" : "US",
+    "countryName" : "United States of America",
+    "regionId" : 2,
+    "regionName" : "Americas"
+  }, {
+    "departmentId" : 160,
+    "departmentName" : "Benefits",
+    "managerId" : null,
+    "managerFirstName" : null,
+    "managerLastName" : null,
+    "managerEmail" : null,
+    "managerPhoneNumber" : null,
+    "locationId" : 1700,
+    "streetAddress" : "2004 Charade Rd",
+    "postalCode" : "98199",
+    "city" : "Seattle",
+    "stateProvince" : "Washington",
+    "countryId" : "US",
+    "countryName" : "United States of America",
+    "regionId" : 2,
+    "regionName" : "Americas"
+  }, {
+    "departmentId" : 180,
+    "departmentName" : "Construction",
+    "managerId" : null,
+    "managerFirstName" : null,
+    "managerLastName" : null,
+    "managerEmail" : null,
+    "managerPhoneNumber" : null,
+    "locationId" : 1700,
+    "streetAddress" : "2004 Charade Rd",
+    "postalCode" : "98199",
+    "city" : "Seattle",
+    "stateProvince" : "Washington",
+    "countryId" : "US",
+    "countryName" : "United States of America",
+    "regionId" : 2,
+    "regionName" : "Americas"
+  }, {
+    "departmentId" : 190,
+    "departmentName" : "Contracting",
+    "managerId" : null,
+    "managerFirstName" : null,
+    "managerLastName" : null,
+    "managerEmail" : null,
+    "managerPhoneNumber" : null,
+    "locationId" : 1700,
+    "streetAddress" : "2004 Charade Rd",
+    "postalCode" : "98199",
+    "city" : "Seattle",
+    "stateProvince" : "Washington",
+    "countryId" : "US",
+    "countryName" : "United States of America",
+    "regionId" : 2,
+    "regionName" : "Americas"
+  }, {
+    "departmentId" : 140,
+    "departmentName" : "Control And Credit",
+    "managerId" : null,
+    "managerFirstName" : null,
+    "managerLastName" : null,
+    "managerEmail" : null,
+    "managerPhoneNumber" : null,
+    "locationId" : 1700,
+    "streetAddress" : "2004 Charade Rd",
+    "postalCode" : "98199",
+    "city" : "Seattle",
+    "stateProvince" : "Washington",
+    "countryId" : "US",
+    "countryName" : "United States of America",
+    "regionId" : 2,
+    "regionName" : "Americas"
+  }, {
+    "departmentId" : 130,
+    "departmentName" : "Corporate Tax",
+    "managerId" : null,
+    "managerFirstName" : null,
+    "managerLastName" : null,
+    "managerEmail" : null,
+    "managerPhoneNumber" : null,
+    "locationId" : 1700,
+    "streetAddress" : "2004 Charade Rd",
+    "postalCode" : "98199",
+    "city" : "Seattle",
+    "stateProvince" : "Washington",
+    "countryId" : "US",
+    "countryName" : "United States of America",
+    "regionId" : 2,
+    "regionName" : "Americas"
+  }, {
+    "departmentId" : 90,
+    "departmentName" : "Executive",
+    "managerId" : 100,
+    "managerFirstName" : "Steven",
+    "managerLastName" : "King",
+    "managerEmail" : "SKING",
+    "managerPhoneNumber" : "515.123.4567",
+    "locationId" : 1700,
+    "streetAddress" : "2004 Charade Rd",
+    "postalCode" : "98199",
+    "city" : "Seattle",
+    "stateProvince" : "Washington",
+    "countryId" : "US",
+    "countryName" : "United States of America",
+    "regionId" : 2,
+    "regionName" : "Americas"
+  }, {
+    "departmentId" : 100,
+    "departmentName" : "Finance",
+    "managerId" : 108,
+    "managerFirstName" : "Nancy",
+    "managerLastName" : "Greenberg",
+    "managerEmail" : "NGREENBE",
+    "managerPhoneNumber" : "515.124.4569",
+    "locationId" : 1700,
+    "streetAddress" : "2004 Charade Rd",
+    "postalCode" : "98199",
+    "city" : "Seattle",
+    "stateProvince" : "Washington",
+    "countryId" : "US",
+    "countryName" : "United States of America",
+    "regionId" : 2,
+    "regionName" : "Americas"
+  }, {
+    "departmentId" : 240,
+    "departmentName" : "Government Sales",
+    "managerId" : null,
+    "managerFirstName" : null,
+    "managerLastName" : null,
+    "managerEmail" : null,
+    "managerPhoneNumber" : null,
+    "locationId" : 1700,
+    "streetAddress" : "2004 Charade Rd",
+    "postalCode" : "98199",
+    "city" : "Seattle",
+    "stateProvince" : "Washington",
+    "countryId" : "US",
+    "countryName" : "United States of America",
+    "regionId" : 2,
+    "regionName" : "Americas"
+  }, {
+    "departmentId" : 40,
+    "departmentName" : "Human Resources",
+    "managerId" : 203,
+    "managerFirstName" : "Susan",
+    "managerLastName" : "Mavris",
+    "managerEmail" : "SMAVRIS",
+    "managerPhoneNumber" : "515.123.7777",
+    "locationId" : 2400,
+    "streetAddress" : "8204 Arthur St",
+    "postalCode" : null,
+    "city" : "London",
+    "stateProvince" : null,
+    "countryId" : "UK",
+    "countryName" : "United Kingdom",
+    "regionId" : 1,
+    "regionName" : "Europe"
+  }, {
+    "departmentId" : 60,
+    "departmentName" : "IT",
+    "managerId" : 103,
+    "managerFirstName" : "Alexander",
+    "managerLastName" : "Hunold",
+    "managerEmail" : "AHUNOLD",
+    "managerPhoneNumber" : "590.423.4567",
+    "locationId" : 1400,
+    "streetAddress" : "2014 Jabberwocky Rd",
+    "postalCode" : "26192",
+    "city" : "Southlake",
+    "stateProvince" : "Texas",
+    "countryId" : "US",
+    "countryName" : "United States of America",
+    "regionId" : 2,
+    "regionName" : "Americas"
+  }, {
+    "departmentId" : 230,
+    "departmentName" : "IT Helpdesk",
+    "managerId" : null,
+    "managerFirstName" : null,
+    "managerLastName" : null,
+    "managerEmail" : null,
+    "managerPhoneNumber" : null,
+    "locationId" : 1700,
+    "streetAddress" : "2004 Charade Rd",
+    "postalCode" : "98199",
+    "city" : "Seattle",
+    "stateProvince" : "Washington",
+    "countryId" : "US",
+    "countryName" : "United States of America",
+    "regionId" : 2,
+    "regionName" : "Americas"
+  }, {
+    "departmentId" : 210,
+    "departmentName" : "IT Support",
+    "managerId" : null,
+    "managerFirstName" : null,
+    "managerLastName" : null,
+    "managerEmail" : null,
+    "managerPhoneNumber" : null,
+    "locationId" : 1700,
+    "streetAddress" : "2004 Charade Rd",
+    "postalCode" : "98199",
+    "city" : "Seattle",
+    "stateProvince" : "Washington",
+    "countryId" : "US",
+    "countryName" : "United States of America",
+    "regionId" : 2,
+    "regionName" : "Americas"
+  }, {
+    "departmentId" : 170,
+    "departmentName" : "Manufacturing",
+    "managerId" : null,
+    "managerFirstName" : null,
+    "managerLastName" : null,
+    "managerEmail" : null,
+    "managerPhoneNumber" : null,
+    "locationId" : 1700,
+    "streetAddress" : "2004 Charade Rd",
+    "postalCode" : "98199",
+    "city" : "Seattle",
+    "stateProvince" : "Washington",
+    "countryId" : "US",
+    "countryName" : "United States of America",
+    "regionId" : 2,
+    "regionName" : "Americas"
+  }, {
+    "departmentId" : 20,
+    "departmentName" : "Marketing",
+    "managerId" : 201,
+    "managerFirstName" : "Michael",
+    "managerLastName" : "Hartstein",
+    "managerEmail" : "MHARTSTE",
+    "managerPhoneNumber" : "515.123.5555",
+    "locationId" : 1800,
+    "streetAddress" : "147 Spadina Ave",
+    "postalCode" : "M5V 2L7",
+    "city" : "Toronto",
+    "stateProvince" : "Ontario",
+    "countryId" : "CA",
+    "countryName" : "Canada",
+    "regionId" : 2,
+    "regionName" : "Americas"
+  }, {
+    "departmentId" : 220,
+    "departmentName" : "NOC",
+    "managerId" : null,
+    "managerFirstName" : null,
+    "managerLastName" : null,
+    "managerEmail" : null,
+    "managerPhoneNumber" : null,
+    "locationId" : 1700,
+    "streetAddress" : "2004 Charade Rd",
+    "postalCode" : "98199",
+    "city" : "Seattle",
+    "stateProvince" : "Washington",
+    "countryId" : "US",
+    "countryName" : "United States of America",
+    "regionId" : 2,
+    "regionName" : "Americas"
+  }, {
+    "departmentId" : 200,
+    "departmentName" : "Operations",
+    "managerId" : null,
+    "managerFirstName" : null,
+    "managerLastName" : null,
+    "managerEmail" : null,
+    "managerPhoneNumber" : null,
+    "locationId" : 1700,
+    "streetAddress" : "2004 Charade Rd",
+    "postalCode" : "98199",
+    "city" : "Seattle",
+    "stateProvince" : "Washington",
+    "countryId" : "US",
+    "countryName" : "United States of America",
+    "regionId" : 2,
+    "regionName" : "Americas"
+  }, {
+    "departmentId" : 270,
+    "departmentName" : "Payroll",
+    "managerId" : null,
+    "managerFirstName" : null,
+    "managerLastName" : null,
+    "managerEmail" : null,
+    "managerPhoneNumber" : null,
+    "locationId" : 1700,
+    "streetAddress" : "2004 Charade Rd",
+    "postalCode" : "98199",
+    "city" : "Seattle",
+    "stateProvince" : "Washington",
+    "countryId" : "US",
+    "countryName" : "United States of America",
+    "regionId" : 2,
+    "regionName" : "Americas"
+  }, {
+    "departmentId" : 70,
+    "departmentName" : "Public Relations",
+    "managerId" : 204,
+    "managerFirstName" : "Hermann",
+    "managerLastName" : "Baer",
+    "managerEmail" : "HBAER",
+    "managerPhoneNumber" : "515.123.8888",
+    "locationId" : 2700,
+    "streetAddress" : "Schwanthalerstr. 7031",
+    "postalCode" : "80925",
+    "city" : "Munich",
+    "stateProvince" : "Bavaria",
+    "countryId" : "DE",
+    "countryName" : "Germany",
+    "regionId" : 1,
+    "regionName" : "Europe"
+  }, {
+    "departmentId" : 30,
+    "departmentName" : "Purchasing",
+    "managerId" : 114,
+    "managerFirstName" : "Den",
+    "managerLastName" : "Raphaely",
+    "managerEmail" : "DRAPHEAL",
+    "managerPhoneNumber" : "515.127.4561",
+    "locationId" : 1700,
+    "streetAddress" : "2004 Charade Rd",
+    "postalCode" : "98199",
+    "city" : "Seattle",
+    "stateProvince" : "Washington",
+    "countryId" : "US",
+    "countryName" : "United States of America",
+    "regionId" : 2,
+    "regionName" : "Americas"
+  }, {
+    "departmentId" : 260,
+    "departmentName" : "Recruiting",
+    "managerId" : null,
+    "managerFirstName" : null,
+    "managerLastName" : null,
+    "managerEmail" : null,
+    "managerPhoneNumber" : null,
+    "locationId" : 1700,
+    "streetAddress" : "2004 Charade Rd",
+    "postalCode" : "98199",
+    "city" : "Seattle",
+    "stateProvince" : "Washington",
+    "countryId" : "US",
+    "countryName" : "United States of America",
+    "regionId" : 2,
+    "regionName" : "Americas"
+  }, {
+    "departmentId" : 250,
+    "departmentName" : "Retail Sales",
+    "managerId" : null,
+    "managerFirstName" : null,
+    "managerLastName" : null,
+    "managerEmail" : null,
+    "managerPhoneNumber" : null,
+    "locationId" : 1700,
+    "streetAddress" : "2004 Charade Rd",
+    "postalCode" : "98199",
+    "city" : "Seattle",
+    "stateProvince" : "Washington",
+    "countryId" : "US",
+    "countryName" : "United States of America",
+    "regionId" : 2,
+    "regionName" : "Americas"
+  }, {
+    "departmentId" : 80,
+    "departmentName" : "Sales",
+    "managerId" : 145,
+    "managerFirstName" : "John",
+    "managerLastName" : "Russell",
+    "managerEmail" : "JRUSSEL",
+    "managerPhoneNumber" : "011.44.1344.429268",
+    "locationId" : 2500,
+    "streetAddress" : "Magdalen Centre, The Oxford Science Park",
+    "postalCode" : "OX9 9ZB",
+    "city" : "Oxford",
+    "stateProvince" : "Oxford",
+    "countryId" : "UK",
+    "countryName" : "United Kingdom",
+    "regionId" : 1,
+    "regionName" : "Europe"
+  }, {
+    "departmentId" : 150,
+    "departmentName" : "Shareholder Services",
+    "managerId" : null,
+    "managerFirstName" : null,
+    "managerLastName" : null,
+    "managerEmail" : null,
+    "managerPhoneNumber" : null,
+    "locationId" : 1700,
+    "streetAddress" : "2004 Charade Rd",
+    "postalCode" : "98199",
+    "city" : "Seattle",
+    "stateProvince" : "Washington",
+    "countryId" : "US",
+    "countryName" : "United States of America",
+    "regionId" : 2,
+    "regionName" : "Americas"
+  }, {
+    "departmentId" : 50,
+    "departmentName" : "Shipping",
+    "managerId" : 121,
+    "managerFirstName" : "Adam",
+    "managerLastName" : "Fripp",
+    "managerEmail" : "AFRIPP",
+    "managerPhoneNumber" : "650.123.2234",
+    "locationId" : 1500,
+    "streetAddress" : "2011 Interiors Blvd",
+    "postalCode" : "99236",
+    "city" : "South San Francisco",
+    "stateProvince" : "California",
+    "countryId" : "US",
+    "countryName" : "United States of America",
+    "regionId" : 2,
+    "regionName" : "Americas"
+  }, {
+    "departmentId" : 120,
+    "departmentName" : "Treasury",
+    "managerId" : null,
+    "managerFirstName" : null,
+    "managerLastName" : null,
+    "managerEmail" : null,
+    "managerPhoneNumber" : null,
+    "locationId" : 1700,
+    "streetAddress" : "2004 Charade Rd",
+    "postalCode" : "98199",
+    "city" : "Seattle",
+    "stateProvince" : "Washington",
+    "countryId" : "US",
+    "countryName" : "United States of America",
+    "regionId" : 2,
+    "regionName" : "Americas"
+  } ]
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_부서_및_위치_정보_조회_api_no_paging_response_fields"><a class="link" href="#_부서_및_위치_정보_조회_api_no_paging_response_fields">Response fields</a></h4>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. /job/v2/{id}</caption>
 <colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">사원 ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">시스템 메시지</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">오브젝트</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result[].departmentId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">부서 ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result[].departmentName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">부서명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result[].managerId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">부서 관리자 ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result[].managerFirstName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">부서 관리자 성</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result[].managerLastName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">부서 관리자 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result[].managerEmail</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">부서 관리자 이메일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result[].managerPhoneNumber</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">부서 관리자 전화번호</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result[].locationId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">주소 정보 ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result[].streetAddress</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">주소</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result[].postalCode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">우편번호</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result[].city</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">도시</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result[].stateProvince</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">주</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result[].countryId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">국가 ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result[].countryName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">국가명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result[].regionId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">지역 ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result[].regionName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">지역명</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_부서_및_위치_정보_조회_api_with_paging"><a class="link" href="#_부서_및_위치_정보_조회_api_with_paging">부서 및 위치 정보 조회 API - with Paging</a></h3>
 <div class="sect3">
-<h4 id="_특정_사원_업무_이력_정보_조회_api_with_paging_and_query_param_query_parameters"><a class="link" href="#_특정_사원_업무_이력_정보_조회_api_with_paging_and_query_param_query_parameters">Query parameters</a></h4>
+<h4 id="_부서_및_위치_정보_조회_api_with_paging_curl_request"><a class="link" href="#_부서_및_위치_정보_조회_api_with_paging_curl_request">Curl request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:9200/department/v2?size=5&amp;page=1' -i -X GET</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_부서_및_위치_정보_조회_api_with_paging_http_request"><a class="link" href="#_부서_및_위치_정보_조회_api_with_paging_http_request">HTTP request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /department/v2?size=5&amp;page=1 HTTP/1.1
+Host: localhost:9200</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_부서_및_위치_정보_조회_api_with_paging_query_parameters"><a class="link" href="#_부서_및_위치_정보_조회_api_with_paging_query_parameters">Query parameters</a></h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter</th>
 <th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">optional</th>
+<th class="tableblock halign-left valign-top">default</th>
+<th class="tableblock halign-left valign-top">min</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>size</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">페이지당 크기 [default = 10], &gt;= 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">페이지당 크기</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>true</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10<br></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1<br></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>page</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">페이지 번호 [default = 0], &gt;= 0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">페이지 번호</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>true</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0<br></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0<br></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_특정_사원_업무_이력_정보_조회_api_with_paging_and_query_param_http_response"><a class="link" href="#_특정_사원_업무_이력_정보_조회_api_with_paging_and_query_param_http_response">HTTP response</a></h4>
+<h4 id="_부서_및_위치_정보_조회_api_with_paging_http_response"><a class="link" href="#_부서_및_위치_정보_조회_api_with_paging_http_response">HTTP response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 863
+Content-Length: 3252
 
 {
   "message" : "SUCCESS",
   "result" : {
     "content" : [ {
-      "employeeId" : 101,
-      "firstName" : "Neena",
-      "lastName" : "Kochhar",
-      "startDate" : "1993-10-28",
-      "endDate" : "1997-03-15",
-      "jobId" : "AC_MGR",
-      "jobTitle" : "Accounting Manager",
-      "departmentId" : 110,
-      "departmentName" : "Accounting"
+      "departmentId" : 140,
+      "departmentName" : "Control And Credit",
+      "managerId" : null,
+      "managerFirstName" : null,
+      "managerLastName" : null,
+      "managerEmail" : null,
+      "managerPhoneNumber" : null,
+      "locationId" : 1700,
+      "streetAddress" : "2004 Charade Rd",
+      "postalCode" : "98199",
+      "city" : "Seattle",
+      "stateProvince" : "Washington",
+      "countryId" : "US",
+      "countryName" : "United States of America",
+      "regionId" : 2,
+      "regionName" : "Americas"
+    }, {
+      "departmentId" : 130,
+      "departmentName" : "Corporate Tax",
+      "managerId" : null,
+      "managerFirstName" : null,
+      "managerLastName" : null,
+      "managerEmail" : null,
+      "managerPhoneNumber" : null,
+      "locationId" : 1700,
+      "streetAddress" : "2004 Charade Rd",
+      "postalCode" : "98199",
+      "city" : "Seattle",
+      "stateProvince" : "Washington",
+      "countryId" : "US",
+      "countryName" : "United States of America",
+      "regionId" : 2,
+      "regionName" : "Americas"
+    }, {
+      "departmentId" : 90,
+      "departmentName" : "Executive",
+      "managerId" : 100,
+      "managerFirstName" : "Steven",
+      "managerLastName" : "King",
+      "managerEmail" : "SKING",
+      "managerPhoneNumber" : "515.123.4567",
+      "locationId" : 1700,
+      "streetAddress" : "2004 Charade Rd",
+      "postalCode" : "98199",
+      "city" : "Seattle",
+      "stateProvince" : "Washington",
+      "countryId" : "US",
+      "countryName" : "United States of America",
+      "regionId" : 2,
+      "regionName" : "Americas"
+    }, {
+      "departmentId" : 100,
+      "departmentName" : "Finance",
+      "managerId" : 108,
+      "managerFirstName" : "Nancy",
+      "managerLastName" : "Greenberg",
+      "managerEmail" : "NGREENBE",
+      "managerPhoneNumber" : "515.124.4569",
+      "locationId" : 1700,
+      "streetAddress" : "2004 Charade Rd",
+      "postalCode" : "98199",
+      "city" : "Seattle",
+      "stateProvince" : "Washington",
+      "countryId" : "US",
+      "countryName" : "United States of America",
+      "regionId" : 2,
+      "regionName" : "Americas"
+    }, {
+      "departmentId" : 240,
+      "departmentName" : "Government Sales",
+      "managerId" : null,
+      "managerFirstName" : null,
+      "managerLastName" : null,
+      "managerEmail" : null,
+      "managerPhoneNumber" : null,
+      "locationId" : 1700,
+      "streetAddress" : "2004 Charade Rd",
+      "postalCode" : "98199",
+      "city" : "Seattle",
+      "stateProvince" : "Washington",
+      "countryId" : "US",
+      "countryName" : "United States of America",
+      "regionId" : 2,
+      "regionName" : "Americas"
     } ],
     "pageable" : {
       "sort" : {
-        "unsorted" : false,
         "sorted" : true,
+        "unsorted" : false,
         "empty" : false
       },
-      "pageNumber" : 0,
-      "pageSize" : 1,
-      "offset" : 0,
+      "pageNumber" : 1,
+      "pageSize" : 5,
+      "offset" : 5,
       "paged" : true,
       "unpaged" : false
     },
-    "totalPages" : 2,
-    "totalElements" : 2,
     "last" : false,
-    "numberOfElements" : 1,
-    "first" : true,
-    "size" : 1,
-    "number" : 0,
+    "totalPages" : 6,
+    "totalElements" : 27,
+    "numberOfElements" : 5,
+    "first" : false,
+    "size" : 5,
+    "number" : 1,
     "sort" : {
-      "unsorted" : false,
       "sorted" : true,
+      "unsorted" : false,
       "empty" : false
     },
     "empty" : false
@@ -1201,7 +1916,7 @@ Content-Length: 863
 </div>
 </div>
 <div class="sect3">
-<h4 id="_특정_사원_업무_이력_정보_조회_api_with_paging_and_query_param_response_fields"><a class="link" href="#_특정_사원_업무_이력_정보_조회_api_with_paging_and_query_param_response_fields">Response fields</a></h4>
+<h4 id="_부서_및_위치_정보_조회_api_with_paging_response_fields"><a class="link" href="#_부서_및_위치_정보_조회_api_with_paging_response_fields">Response fields</a></h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -1227,41 +1942,6 @@ Content-Length: 863
 <td class="tableblock halign-left valign-top"><p class="tableblock">오브젝트</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result.content[].employeeId</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">사원 ID</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result.content[].firstName</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">성</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result.content[].lastName</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">이름</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result.content[].startDate</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">업무 시작일</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result.content[].endDate</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">업무 종료일</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result.content[].jobId</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">업무 ID</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result.content[].jobTitle</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">업무명</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>result.content[].departmentId</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">부서 ID</p></td>
@@ -1270,6 +1950,76 @@ Content-Length: 863
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>result.content[].departmentName</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">부서명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result.content[].managerId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">부서 관리자 ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result.content[].managerFirstName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">부서 관리자 성</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result.content[].managerLastName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">부서 관리자 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result.content[].managerEmail</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">부서 관리자 이메일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result.content[].managerPhoneNumber</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">부서 관리자 전화번호</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result.content[].locationId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">주소 정보 ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result.content[].streetAddress</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">주소</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result.content[].postalCode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">우편번호</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result.content[].city</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">도시</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result.content[].stateProvince</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">주</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result.content[].countryId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">국가 ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result.content[].countryName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">국가명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result.content[].regionId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">지역 ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result.content[].regionName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">지역명</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>result.pageable</code></p></td>
@@ -1385,8 +2135,8 @@ Content-Length: 863
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.2.0<br>
-Last updated 2023-06-09 17:03:33 +0900
+Version 0.6.0<br>
+Last updated 2023-06-10 12:28:16 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

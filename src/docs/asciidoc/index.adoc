@@ -22,8 +22,15 @@ operation::history-success[snippets='curl-request,http-request,path-parameters,h
 
 === 특정 사원 업무 이력 정보 조회 API - with Paging
 
-operation::history-with-paging-success[snippets='curl-request,http-request,path-parameters,http-response,response-fields']
+operation::history-with-paging-success[snippets='curl-request,http-request,path-parameters,query-parameters,http-response,response-fields']
 
-=== 특정 사원 업무 이력 정보 조회 API - with Paging and Query Param
+[[Department-API]]
+== Department API
 
-operation::history-with-paging-and-query-param-success[snippets='curl-request,http-request,path-parameters,query-parameters,http-response,response-fields']
+=== 부서 및 위치 정보 조회 API - no Paging
+
+operation::list-success[snippets='curl-request,http-request,http-response,response-fields']
+
+=== 부서 및 위치 정보 조회 API - with Paging
+
+operation::list-with-paging-success[snippets='curl-request,http-request,query-parameters,http-response,response-fields']
