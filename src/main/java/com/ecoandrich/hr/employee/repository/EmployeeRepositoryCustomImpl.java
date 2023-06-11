@@ -1,7 +1,6 @@
 package com.ecoandrich.hr.employee.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;

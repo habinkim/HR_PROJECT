@@ -42,3 +42,10 @@ operation::list-with-paging-and-filter-success[snippets='curl-request,http-reque
 === 특정 부서 및 해당 업무의 급여 비율 인상 API
 
 operation::update-salary-success[snippets='curl-request,http-request,request-fields,http-response,response-fields']
+
+[[Open-API]]
+== Open API
+
+=== 서울특별시 동작구 횡단보도 정보조회 API
+
+operation::cross-walk-open-api-success[snippets='curl-request,http-request,query-parameters,http-response,response-fields']
