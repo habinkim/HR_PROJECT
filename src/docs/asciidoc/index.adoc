@@ -1,4 +1,4 @@
-= TODO REST API Documentation
+= HR REST API Documentation
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
