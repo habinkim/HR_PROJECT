@@ -11,6 +11,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer>, Em
 
     @Override
     @EntityGraph(attributePaths = {"job", "manager", "department"})
+    List<Employee> findAll();
+
+    @Override
+    @EntityGraph(attributePaths = {"job", "manager", "department"})
     Optional<Employee> findById(Integer id);
 
     @EntityGraph(attributePaths = "department")

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+    <springProfile name="deploy">
+        <logger level="OFF" appender-ref="console" name="org.hibernate.engine.internal.TwoPhaseLoad"/>
+        <logger level="OFF" appender-ref="console" name="org.hibernate.loader.Loader"/>
+        <logger level="OFF" appender-ref="console" name="org.hibernate.SQL"/>
+        <logger level="OFF" appender-ref="console"
+                name="org.hibernate.loader.plan.exec.process.internal.EntityReferenceInitializerImpl"/>
+        <logger level="OFF" appender-ref="console"
+                name="org.hibernate.loader.plan.exec.process.internal.CollectionReferenceInitializerImpl"/>
+        <logger level="OFF" appender-ref="console"
+                name="org.hibernate.loader.entity.plan.AbstractLoadPlanBasedEntityLoader"/>
+        <logger level="OFF" appender-ref="console" name="org.hibernate.engine.loading.internal.CollectionLoadContext"/>
+        <logger level="OFF" appender-ref="console" name="com.zaxxer.hikari.pool.HikariPool"/>
+        <logger level="OFF" appender-ref="console" name="com.zaxxer.hikari.pool.PoolBase"/>
+        <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>INFO</level>
+                <onMatch>ACCEPT</onMatch>
+                <onMismatch>ACCEPT</onMismatch>
+            </filter>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <!-- rollover daily -->
+                <fileNamePattern>HR_LOG/%d{yyyy-MM-dd}.%i.log
+                </fileNamePattern>
+                <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                    <!-- or whenever the file size reaches 20MB -->
+                    <maxFileSize>20MB</maxFileSize>
+                </timeBasedFileNamingAndTriggeringPolicy>
+            </rollingPolicy>
+            <encoder>
+                <pattern>%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+            </encoder>
+        </appender>
+    </springProfile>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) %magenta(%-4relative) --- [ %thread{10} ]
+                %cyan(%logger{20}) : %msg%n
+            </pattern>
+        </layout>
+    </appender>
+
+    <!-- Loggers -->
+    <logger name="org.apache.catalina" level="ERROR">
+    </logger>
+
+    <logger name="org.apache.commons" level="ERROR">
+    </logger>
+
+    <logger name="org.springframework" level="INFO">
+    </logger>
+
+    <logger name="java.sql" level="DEBUG">
+    </logger>
+
+    <logger name="org.hibernate" level="DEBUG"/>
+
+    <root level="DEBUG">
+        <appender-ref ref="ROLLING"/>
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>

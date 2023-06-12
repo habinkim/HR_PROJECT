@@ -16,3 +16,7 @@ spring:
       ddl-auto: validate
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+logging:
+  charset:
+    console: UTF-8
+    file: UTF-8
