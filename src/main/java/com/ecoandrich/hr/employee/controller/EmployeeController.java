@@ -22,6 +22,10 @@ public class EmployeeController {
     private final EmployeeMapper employeeMapper;
     private final ResponseMapper responseMapper;
 
+    /**
+     * 사원 현재 정보 조회 API
+     * @return List<EmployeePayloads.InfoResponse>
+     */
     @GetMapping(value = Uris.EMPLOYEE_ROOT)
     public ResponseEntity<BaseResponse> infoList() {
         List<EmployeePayloads.InfoResponse> infoResponses = employeeMapper.infoResponses(service.findAll());
