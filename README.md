@@ -30,3 +30,32 @@
 
 ### Issue 6. 사용자는 서울특별시 동작구 횡단보도 정보조회를 할 수 있다.
 
+
+
+## 2. 기술 스택
+
+- Language : Java 17
+- Framework : Spring
+  - Spring Boot
+  - Spring Data JPA
+  - Srpring Web
+  - Spring MVC
+  - Spring REST Docs
+- DataBase Connection
+  - HikariPool
+  - MariaDB
+- Persistence Framework
+  - JPA
+  - QueryDSL
+- Boiler Plate Code
+  - lombok
+  - mapstruct
+- TDD
+  - JUnit
+  - testcontainers
+  - Spring REST Docs
+    - MockMvc
+    - AsciiDoctor
+- Logging
+  - Logback
+  - p6spy Query Logger
