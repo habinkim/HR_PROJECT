@@ -34,13 +34,13 @@
         </appender>
     </springProfile>
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <layout class="ch.qos.logback.classic.PatternLayout">
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) %magenta(%-4relative) --- [ %thread{10} ]
-                %cyan(%logger{20}) : %msg%n
-            </pattern>
-        </layout>
-    </appender>
+    <springProfile name="local">
+        <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+        <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+        <root level="INFO">
+            <appender-ref ref="CONSOLE" />
+        </root>
+    </springProfile>
 
     <!-- Loggers -->
     <logger name="org.apache.catalina" level="ERROR">
