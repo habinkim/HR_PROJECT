@@ -93,6 +93,13 @@ ext {
 	set('snippetsDir', file("build/generated-snippets"))
 }
 
+bootRun {
+	doFirst {
+		classpath = sourceSets.main.runtimeClasspath
+		System.setProperty "spring.profiles.active", "local"
+	}
+}
+
 test {
 	outputs.dir snippetsDir
 	useJUnitPlatform()

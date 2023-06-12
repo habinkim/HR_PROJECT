@@ -34,6 +34,8 @@
 
 ## 2. 기술 스택
 
+### 2.1. Backend
+
 - Language : Java 17
 - Framework : Spring
   - Spring Boot
@@ -59,3 +61,24 @@
 - Logging
   - Logback
   - p6spy Query Logger
+
+
+
+### 2.2. Infra
+
+- AWS (SaaS)
+  - VPC
+  - EC2
+  - Application Load Balancer
+  - Certification Manager
+  - Route 53
+- Gabia
+  - Domain
+
+
+
+## 3. 실행 방법
+
+1. Project Root 경로에서 `./gradlew build`
+2. `cd build/libs`
+3. `java -jar -Dspring.profiles.active=local hr-1.3.0.jar`
