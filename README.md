@@ -40,7 +40,7 @@
 - Framework : Spring
   - Spring Boot
   - Spring Data JPA
-  - Srpring Web
+  - Spring Web
   - Spring MVC
   - Spring REST Docs
 - DataBase Connection
