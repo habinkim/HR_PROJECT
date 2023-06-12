@@ -4,16 +4,32 @@ import com.ecoandrich.hr.domain.department.Department;
 import com.ecoandrich.hr.domain.employee.Employee;
 import com.ecoandrich.hr.domain.job.Job;
 import com.ecoandrich.hr.payload.employee.EmployeePayloads;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-06-12T12:54:13+0900",
+    date = "2023-06-12T13:26:58+0900",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 18.0.2.1 (Oracle Corporation)"
 )
 @Component
 public class EmployeeMapperImpl implements EmployeeMapper {
+
+    @Override
+    public List<EmployeePayloads.InfoResponse> infoResponses(List<Employee> employees) {
+        if ( employees == null ) {
+            return null;
+        }
+
+        List<EmployeePayloads.InfoResponse> list = new ArrayList<EmployeePayloads.InfoResponse>( employees.size() );
+        for ( Employee employee : employees ) {
+            list.add( infoResponse( employee ) );
+        }
+
+        return list;
+    }
 
     @Override
     public EmployeePayloads.InfoResponse infoResponse(Employee employee) {

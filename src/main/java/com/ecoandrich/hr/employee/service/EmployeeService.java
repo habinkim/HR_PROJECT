@@ -23,6 +23,11 @@ public class EmployeeService {
     private final EntityManager em;
 
     @Transactional(readOnly = true)
+    public List<Employee> findAll() {
+        return repository.findAll();
+    }
+
+    @Transactional(readOnly = true)
     public Employee findById(Integer id) {
         return repository.findById(id)
                 .orElseThrow(() -> new CommonApplicationException(MessageCode.NOT_FOUND_EMPLOYEE));

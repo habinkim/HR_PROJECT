@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.ecoandrich.hr.common.response.MessageCode.NOT_FOUND_EMPLOYEE;
@@ -27,6 +28,70 @@ class EmployeeControllerTest extends ControllerBaseTest {
     @Transactional
     @Test
     @Order(1)
+    @DisplayName("사원 현재 정보 조회, 성공")
+    void infoListSuccess() throws Exception {
+        String uri = Uris.EMPLOYEE_ROOT;
+
+        mockMvc.perform(get(uri))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.message", notNullValue()))
+                .andExpect(jsonPath("$.result[0]", notNullValue()))
+
+                .andExpect(jsonPath("$.result[0].id", notNullValue()))
+                .andExpect(jsonPath("$.result[0].firstName", notNullValue()))
+                .andExpect(jsonPath("$.result[0].lastName", notNullValue()))
+                .andExpect(jsonPath("$.result[0].email", notNullValue()))
+                .andExpect(jsonPath("$.result[0].phoneNumber", notNullValue()))
+                .andExpect(jsonPath("$.result[0].hireDate", notNullValue()))
+                .andExpect(jsonPath("$.result[0].jobId", notNullValue()))
+                .andExpect(jsonPath("$.result[0].jobTitle", notNullValue()))
+                .andExpect(jsonPath("$.result[0].salary", notNullValue()))
+                .andExpect(jsonPath("$.result[0].commissionPct", nullValue()))
+                .andExpect(jsonPath("$.result[0].managerId", nullValue()))
+                .andExpect(jsonPath("$.result[0].managerFirstName", nullValue()))
+                .andExpect(jsonPath("$.result[0].managerLastName", nullValue()))
+                .andExpect(jsonPath("$.result[0].departmentId", notNullValue()))
+                .andExpect(jsonPath("$.result[0].departmentName", notNullValue()))
+
+                .andExpect(jsonPath("$.message", is(MessageCode.SUCCESS.name())))
+                .andExpect(jsonPath("$.result[0].id", is(100)))
+                .andExpect(jsonPath("$.result[0].firstName", is("Steven")))
+                .andExpect(jsonPath("$.result[0].lastName", is("King")))
+                .andExpect(jsonPath("$.result[0].email", is("SKING")))
+                .andExpect(jsonPath("$.result[0].phoneNumber", is("515.123.4567")))
+                .andExpect(jsonPath("$.result[0].hireDate", is("1987-06-17")))
+                .andExpect(jsonPath("$.result[0].jobId", is("AD_PRES")))
+                .andExpect(jsonPath("$.result[0].jobTitle", is("President")))
+                .andExpect(jsonPath("$.result[0].salary", is(24000.00)))
+                .andExpect(jsonPath("$.result[0].departmentId", is(90)))
+                .andExpect(jsonPath("$.result[0].departmentName", is("Executive")))
+
+                .andDo(restDocs.document(
+                        responseFields(
+                                fieldWithPath("message").description("시스템 메시지"),
+                                fieldWithPath("result[]").description("오브젝트"),
+                                fieldWithPath("result[].id").description("사원 ID"),
+                                fieldWithPath("result[].firstName").description("성"),
+                                fieldWithPath("result[].lastName").description("이름"),
+                                fieldWithPath("result[].email").description("이메일"),
+                                fieldWithPath("result[].phoneNumber").description("전화번호"),
+                                fieldWithPath("result[].hireDate").description("고용일"),
+                                fieldWithPath("result[].jobId").description("업무 ID"),
+                                fieldWithPath("result[].jobTitle").description("업무명"),
+                                fieldWithPath("result[].salary").description("봉급"),
+                                fieldWithPath("result[].commissionPct").description("커미션 비율").type(JsonFieldType.NUMBER).optional(),
+                                fieldWithPath("result[].managerId").description("상사 ID").type(JsonFieldType.NUMBER).optional(),
+                                fieldWithPath("result[].managerFirstName").description("상사 성").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("result[].managerLastName").description("상사 이름").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("result[].departmentId").description("부서 ID").type(JsonFieldType.NUMBER).optional(),
+                                fieldWithPath("result[].departmentName").description("부서명").type(JsonFieldType.STRING).optional()
+                        )
+                ));
+    }
+
+    @Transactional
+    @Test
+    @Order(2)
     @DisplayName("특정 사원 현재 정보 조회, 성공")
     void infoSuccess() throws Exception {
 
@@ -87,19 +152,19 @@ class EmployeeControllerTest extends ControllerBaseTest {
                                 fieldWithPath("result.jobId").description("업무 ID"),
                                 fieldWithPath("result.jobTitle").description("업무명"),
                                 fieldWithPath("result.salary").description("봉급"),
-                                fieldWithPath("result.commissionPct").description("커미션 비율"),
-                                fieldWithPath("result.managerId").description("상사 ID"),
-                                fieldWithPath("result.managerFirstName").description("상사 성"),
-                                fieldWithPath("result.managerLastName").description("상사 이름"),
-                                fieldWithPath("result.departmentId").description("부서 ID"),
-                                fieldWithPath("result.departmentName").description("부서명")
+                                fieldWithPath("result.commissionPct").description("커미션 비율").type(JsonFieldType.NUMBER).optional(),
+                                fieldWithPath("result.managerId").description("상사 ID").type(JsonFieldType.NUMBER).optional(),
+                                fieldWithPath("result.managerFirstName").description("상사 성").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("result.managerLastName").description("상사 이름").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("result.departmentId").description("부서 ID").type(JsonFieldType.NUMBER).optional(),
+                                fieldWithPath("result.departmentName").description("부서명").type(JsonFieldType.STRING).optional()
                         )
                 ));
     }
 
     @Transactional
     @Test
-    @Order(2)
+    @Order(3)
     @DisplayName("특정 사원 현재 정보 조회, 실패")
     void infoFail() throws Exception {
 

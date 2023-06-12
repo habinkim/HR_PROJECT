@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class EmployeeController {
@@ -19,6 +21,12 @@ public class EmployeeController {
     private final EmployeeService service;
     private final EmployeeMapper employeeMapper;
     private final ResponseMapper responseMapper;
+
+    @GetMapping(value = Uris.EMPLOYEE_ROOT)
+    public ResponseEntity<BaseResponse> infoList() {
+        List<EmployeePayloads.InfoResponse> infoResponses = employeeMapper.infoResponses(service.findAll());
+        return responseMapper.ok(infoResponses);
+    }
 
     /**
      * 특정 사원 현재 정보 조회 API

@@ -9,6 +9,10 @@
 [[Employee-API]]
 == Employee API
 
+=== 사원 현재 정보 조회 API
+
+operation::info-list-success[snippets='curl-request,http-request,http-response,response-fields']
+
 === 특정 사원 현재 정보 조회 API
 
 operation::info-success[snippets='curl-request,http-request,path-parameters,http-response,response-fields']
