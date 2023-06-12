@@ -3,18 +3,16 @@ package com.ecoandrich.hr.common.util;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.dsl.*;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.NumberPath;
+import com.querydsl.core.types.dsl.StringPath;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.util.StringUtils;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static com.querydsl.core.types.dsl.Expressions.numberTemplate;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PredicateBuilder {
@@ -23,11 +21,6 @@ public class PredicateBuilder {
 
     public static PredicateBuilder builder() {
         return new PredicateBuilder();
-    }
-
-    public <P extends Predicate> PredicateBuilder and(P pr) {
-        predicateBuilders.add(pr);
-        return this;
     }
 
     public Predicate build() {

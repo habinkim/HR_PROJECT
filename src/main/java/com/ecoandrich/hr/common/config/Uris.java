@@ -10,4 +10,6 @@ public class Uris {
 
     public static final String OPEN_API_ROOT = "/openApi";
 
+    public static final String HEALTH_CHECK_ROOT = "/health";
+
 }

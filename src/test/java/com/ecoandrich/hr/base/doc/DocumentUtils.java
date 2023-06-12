@@ -9,9 +9,9 @@ public class DocumentUtils {
     public static OperationRequestPreprocessor getDocumentRequest() {
         return preprocessRequest(
                 modifyUris()
-                        .scheme("http")
-                        .host("localhost")
-                        .port(9200),
+                        .scheme("https")
+                        .host("hrtest.site")
+                        .removePort(),
                 prettyPrint()
         );
     }
